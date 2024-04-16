@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Page</title>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+</head>
+
+<body>
+    <nav class="navbar sticky-top navbar-expand-lg bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/home">shahrisabzshahri16-maktab.uz</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/news">Yangiliklar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/article">Maqolalar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/teacher">O'qituvchilar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home#about">Maktab haqida ma'lumot</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home#contacts">Contact</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div id="news" class="container-md my-5 bg-tertiary-bg">
+        <h1>Yangiliklar</h1>
+        <div class="container">
+            {{$currPage := .Page}}
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link">orqaga</a>
+                    </li>
+                    {{range .Pagination}}
+                    {{if eq .Index $currPage}}
+                    <li class="page-item active">
+                        <a class="page-link" href="?page={{.Index}}">{{.Value}}</a>
+                    </li>
+                    {{else}}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{.Index}}">{{.Value}}</a>
+                    </li>
+                    {{end}}
+                    {{end}}
+                    <li class="page-item">
+                        <a class="page-link">oldinga</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div id="news" class="container-md my-5 bg-tertiary-bg">
+            {{range $element := .NewsArray}}
+            <div class="container">
+                <h2>
+                    <a href="{{$element.Body}}" target="_blank">{{$element.Title}}</a>
+                </h2>
+                <p>{{$element.Overview}}</p>
+                <p>
+                    <button class="btn btn-link">
+                        <span class="text-primary">{{$element.CreatedAt}}</span>
+                    </button>
+                    <button class="btn btn-link">
+                        <span class="text-success">{{$element.CreatedBy}}</span>
+                    </button>
+                    <button class="btn btn-link" onclick="copyToClipboard('{{$element.Body}}')">
+                        <span>yangilik havolasini olish</span>
+                    </button>
+                </p>
+                <hr>
+            </div>
+            {{end}}
+        </div>
+    </div>
+
+
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users Page</title>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <nav class="navbar sticky-top navbar-expand-lg bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/home">shahrisabzshahri16-maktab.uz</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/operations/user">Foydalanuvchilar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/operations/news">Yangiliklar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/operations/article">Maqolalar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/operations/teacher">O'qituvchilar</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/operations/logout">Logout</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container-md my-2">
+
+        <div class="container-md my-4">
+            {{$path := .Path}}
+            <a href="/operations/{{$path}}/create" class="btn btn-success">{{.TitleName}} qo'shish</a>
+        </div>
+        <div class="container">
+            {{$currPage := .Page}}
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link">orqaga</a>
+                    </li>
+                    {{range .Pagination}}
+                    {{if eq .Index $currPage}}
+                    <li class="page-item active">
+                        <a class="page-link" href="?page={{.Index}}">{{.Value}}</a>
+                    </li>
+                    {{else}}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{.Index}}">{{.Value}}</a>
+                    </li>
+                    {{end}}
+                    {{end}}
+                    <li class="page-item">
+                        <a class="page-link">oldinga</a>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+        <div id="news" class="container-md my-5 bg-tertiary-bg">
+            {{ $title := .TitleName}}
+            <h1>{{$title}}lar</h1>
+            {{range $element := .NewsArray}}
+            <div class="container">
+                <h2>
+                    <a href="{{$element.Body}}" target="_blank">{{$element.Title}}</a>
+                </h2>
+                <p>{{$element.Overview}}</p>
+                <p>
+                    {{if $element.Accepted}}
+                    <button class="btn btn-success">
+                        <span class="text-white">Nashr qilingan</span>
+                    </button>
+                    {{else}}
+                    <button class="btn btn-warning">
+                        <span class="text-primary">Nashr qilinmagan</span>
+                    </button>
+                    {{end}}
+                    <button class="btn btn-link">
+                        <span class="text-primary">{{$element.CreatedAt}}</span>
+                    </button>
+                    <button class="btn btn-link">
+                        <span class="text-success">{{$element.CreatedBy}}</span>
+                    </button>
+                    <button class="btn btn-link" onclick="copyToClipboard('{{$element.Body}}')">
+                        <span>{{$title}} havolasini olish</span>
+                    </button>
+                    <a class="btn btn-link text-danger" href="/operations/{{$path}}/delete/{{.Id}}">o'chirish</a>
+                    <a class="btn btn-link text-warning" href="/operations/{{$path}}/update/{{.Id}}">o'zgartirish</a>
+                </p>
+                <hr>
+            </div>
+            {{end}}
+        </div>
+
+    </div>
+
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                    console.log('Text copied to clipboard:', text);
+                });
+        }
+    </script>
+</body>
+
+</html>

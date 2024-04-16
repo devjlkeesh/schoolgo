@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teachers Page</title>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+</head>
+
+<body>
+    <nav class="navbar sticky-top navbar-expand-lg bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/home">shahrisabzshahri16-maktab.uz</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/news">Yangiliklar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/article">Maqolalar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/teacher">O'qituvchilar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home#about">Maktab haqida ma'lumot</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home#contacts">Contact</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+
+
+
+    <div id="teachers" class="container-md my-5 bg-tertiary-bg">
+        <h1>O'qituvchilar</h1>
+        <div class="container">
+            <nav>
+                {{$currPage := .Page}}
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link">orqaga</a>
+                    </li>
+                    {{range .Pagination}}
+                    {{if eq .Index $currPage}}
+                    <li class="page-item active">
+                        <a class="page-link" href="/teacher?page={{.Index}}">{{.Value}}</a>
+                    </li>
+                    {{else}}
+                    <li class="page-item">
+                        <a class="page-link" href="/teacher?page={{.Index}}">{{.Value}}</a>
+                    </li>
+                    {{end}}
+                    {{end}}
+                    <li class="page-item">
+                        <a class="page-link">oldinga</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="container text-center">
+
+            <div class="row">
+                {{range .Teachers }}
+                <div class="col-sm-6 col-md-3 my-3 mb-sm-0">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{.Img}}" class="card-img-top" alt="{{.Fullname}}">
+                        <div class="card-body">
+                            <h5 class="card-title">FIO : {{.Fullname}}</h5>
+                            <p class="card-text">Tug'ulgan sanasi : {{.Birthdate}}</p>
+                            <p class="card-text">Fan nomi : {{.Subject}}</p>
+                            <p class="card-text">Toifasi : {{.Category}}</p>
+                        </div>
+                    </div>
+                </div>
+                {{end}}
+            </div>
+
+        </div>
+
+        <script src="/assets/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

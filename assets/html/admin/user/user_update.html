@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users Page</title>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <nav class="navbar sticky-top navbar-expand-lg bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/home">shahrisabzshahri16-maktab.uz</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/operations/user">Foydalanuvchilar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/operations/news">Yangiliklar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/operations/article">Maqolalar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/operations/teacher">O'qituvchilar</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/operations/logout">Logout</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container-md my-2">
+        <form method="post" class="mt-5">
+            <div class="mb-3">
+                <label for="username" class="form-label">username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="javohir"
+                    value="{{.Username}}">
+            </div>
+            <div class="mb-3">
+                <label for="status" class="form-label">Xolati</label>
+                <div class="btn-group" role="group">
+                    <input type="radio" class="btn-check" name="status" value="inactive" id="btnradio1"
+                        autocomplete="off" checked>
+                    <label class="btn btn-outline-danger" for="btnradio1">Faol Emas</label>
+                    <input type="radio" class="btn-check" name="status" value="active" id="btnradio2"
+                        autocomplete="off">
+                    <label class="btn btn-outline-success" for="btnradio2">Faol</label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="role" class="form-label">role</label>
+                <select class="form-select" id="role" name="role" aria-label="manager">
+                    {{if eq .Role "admin"}}
+                    <option value="manager">manager</option>
+                    <option value="admin" selected class="text-danger">admin</option>
+                    {{else}}
+                    <option value="manager" selected>manager</option>
+                    <option value="admin" class="text-danger">admin</option>
+                    {{end}}
+                </select>
+            </div>
+            <div class="mb-3">
+                <a href="/operations/user" class="btn btn-success">go back</a>
+                <button type="submit" class="ms-2 btn btn-warning">update</button>
+            </div>
+        </form>
+    </div>
+
+
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
